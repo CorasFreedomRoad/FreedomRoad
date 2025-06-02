@@ -9,20 +9,37 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     steps:
+      # 1) Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2) Build the APK with the Game-CI Unity builder
       - name: Build Android with Unity
         uses: game-ci/unity-builder@v2
         with:
+          projectPath: "My project"
           unityVersion: 2022.3.5f1
           targetPlatform: Android
           buildName: FreedomRoad-gacha.apk
           buildPath: build/android
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v2
+      # 3) Create a throwaway GitHub Release
+      - name: Create temporary release
+        id: create_release
+        uses: actions/create-release@v1
         with:
-          name: Gacha-APK
-          path: build/android/FreedomRoad-gacha.apk
+          tag_name: gacha-apk-${{ github.run_id }}
+          release_name: Gacha-APK-Build-${{ github.run_id }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 4) Upload the built APK into that Release
+      - name: Upload APK as release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/android/FreedomRoad-gacha.apk
+          asset_name: FreedomRoad-gacha.apk
+          asset_content_type: application/vnd.android.package-archive
