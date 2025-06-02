@@ -13,33 +13,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cache Unity packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            Library/PackageCache
-          key: ${{ runner.os }}-unity-packages-${{ hashFiles('ProjectSettings/ProjectVersion.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-unity-packages-
-
-      - name: Set up Unity Hub
-        uses: game-ci/unity-hub@v2
-        with:
-          unity-version: 2022.3.5f1
-
-      - name: Activate Unity license
-        uses: game-ci/unity-activate@v2
-        with:
-          unityEmail: ${{ secrets.UNITY_EMAIL }}
-          unityPassword: ${{ secrets.UNITY_PASSWORD }}
-          unitySerial: ${{ secrets.UNITY_LICENSE_SERIAL }}
-
-      - name: Build Android
+      - name: Build Android with Unity
         uses: game-ci/unity-builder@v2
         with:
+          # Unity version to install
+          unityVersion: 2022.3.5f1
+          # Target platform
           targetPlatform: Android
+          # APK filename
           buildName: FreedomRoad-gacha.apk
+          # Output path inside the runner
           buildPath: build/android
+          # (Optional) Automatically uses ${{ secrets.GITHUB_TOKEN }} to upload logs
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+        # If you use Unity license secrets (UNITY_EMAIL, UNITY_PASSWORD, UNITY_SERIAL),
+        # unity-builder action will pick them up automatically.
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v3
