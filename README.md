@@ -20,3 +20,5 @@
 // Force CI run after switching upload-artifact to v3
 
 // Force CI run after pinning upload-artifact to v3.1.2
+
+// Force CI run after relocating workflow to root
