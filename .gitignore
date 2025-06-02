@@ -22,3 +22,6 @@
 *.VC.db
 *.pidb.meta
 sysinfo.txt
+# Ignore Unity cache
+My project/Library/
+
