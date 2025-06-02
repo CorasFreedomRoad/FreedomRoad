@@ -10,3 +10,5 @@
 // trigger gacha build after pinning upload-artifact
 
 // trigger gacha CI build (step 4)
+
+// trigger gacha build after conflict resolution
