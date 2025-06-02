@@ -8,3 +8,5 @@
 // Trigger CI after switching upload-artifact to @v2
 
 // Trigger final CI run after moving workflow to root
+
+// Trigger CI after pinning upload-artifact to v2.3.1
