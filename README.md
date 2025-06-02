@@ -22,3 +22,5 @@
 // Force CI run after pinning upload-artifact to v3.1.2
 
 // Force CI run after relocating workflow to root
+
+// Trigger final CI run after deleting nested workflow
