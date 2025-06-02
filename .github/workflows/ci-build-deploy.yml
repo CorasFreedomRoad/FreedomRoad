@@ -1,0 +1,48 @@
+name: CI Build Deploy
+
+on:
+  push:
+    branches:
+      - gacha
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache Unity packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            Library/PackageCache
+          key: ${{ runner.os }}-unity-packages-${{ hashFiles('ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-unity-packages-
+
+      - name: Set up Unity Hub
+        uses: game-ci/unity-hub@v2
+        with:
+          unity-version: 2022.3.5f1
+
+      - name: Activate Unity license
+        uses: game-ci/unity-activate@v2
+        with:
+          unityEmail: ${{ secrets.UNITY_EMAIL }}
+          unityPassword: ${{ secrets.UNITY_PASSWORD }}
+          unitySerial: ${{ secrets.UNITY_LICENSE_SERIAL }}
+
+      - name: Build Android
+        uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: Android
+          buildName: FreedomRoad-gacha.apk
+          buildPath: build/android
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Gacha-APK
+          path: build/android/FreedomRoad-gacha.apk
