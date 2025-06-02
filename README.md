@@ -24,3 +24,5 @@
 // Force CI run after relocating workflow to root
 
 // Trigger final CI run after deleting nested workflow
+
+// Force CI run after switching upload-artifact to @v3
