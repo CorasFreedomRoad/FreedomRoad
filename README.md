@@ -10,3 +10,5 @@
 // Trigger final CI run after moving workflow to root
 
 // Trigger CI after pinning upload-artifact to v2.3.1
+
+// Trigger CI after syncing workflow
