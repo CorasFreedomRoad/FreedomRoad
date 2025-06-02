@@ -12,3 +12,5 @@
 // trigger gacha CI build (step 4)
 
 // trigger gacha build after conflict resolution
+
+// CI check after verifying workflow on GitHub
