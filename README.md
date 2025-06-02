@@ -12,3 +12,5 @@
 // Trigger CI after pinning upload-artifact to v2.3.1
 
 // Trigger CI after syncing workflow
+
+// Trigger CI after cleaning up My project
