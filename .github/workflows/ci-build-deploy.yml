@@ -26,4 +26,3 @@ jobs:
         with:
           name: Gacha-APK
           path: build/android/FreedomRoad-gacha.apk
-          
